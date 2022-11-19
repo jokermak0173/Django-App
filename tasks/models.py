@@ -8,7 +8,6 @@ class Task(models.Model):
         MEDIUM = 'ME', 'MEDIUM'
         LOW = 'LO', 'LOW'
     
-    
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=150, null=False)
     description = models.TextField(null=True, blank=True)
