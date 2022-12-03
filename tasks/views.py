@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -58,4 +59,11 @@ class TaskDetailAPIView(APIView):
                 {'message': message}, 
                 status = status.HTTP_200_OK
         )
-            
+
+class GetTasksByUserIdView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    
+    def get_queryset(self):
+        user_id = self.request.query_params.get('user_id')
+        queryset = Task.objects.filter(user = user_id)
+        return queryset
